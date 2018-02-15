@@ -1,5 +1,5 @@
 FROM alpine
-RUN apk add --no-cache sudo git opam make bash gcc g++ m4 patch libc-dev perl
+RUN apk add --no-cache git opam make bash gcc g++ m4 patch libc-dev perl
 RUN git clone git://github.com/ocaml/opam.git
 RUN opam init -a
 RUN opam pin add -n opam-client opam
@@ -12,7 +12,7 @@ RUN opam pin add -n opam-devel opam
 RUN opam install -y opam-devel
 
 FROM alpine
-RUN apk add --no-cache sudo make bash gcc patch libc-dev curl git
+RUN apk add --no-cache sudo make bash gcc patch libc-dev curl git tar rsync
 COPY --from=0 /root/.opam/system/lib/opam-devel/opam /usr/bin/opam
 RUN echo "opam ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN adduser -D opam
